@@ -1,8 +1,9 @@
-Sugar:13
-Eggs:10
-Flour:2
-Milk:11
-Meat:11
-Oil:1
-Tomatoes:5
-Chocolate:4
+Product,Quantity
+Sugar,13
+Eggs,10
+Flour,2
+Milk,11
+Meat,11
+Oil,1
+Tomatoes,5
+Chocolate,4

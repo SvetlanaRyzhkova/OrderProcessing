@@ -2,7 +2,7 @@
   "profiles": {
     "OrderProcessing": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\Users\\svetl\\Documents\\MyProjects\\OrderProcessing\\OrderProcessing\\Orders\\Cake.csv C:\\Users\\svetl\\Documents\\MyProjects\\OrderProcessing\\OrderProcessing\\Orders\\Kebab.csv C:\\Users\\svetl\\Documents\\MyProjects\\OrderProcessing\\OrderProcessing\\Orders\\IceCream.csv -o C:\\Users\\svetl\\Documents\\MyProjects\\OrderProcessing\\OrderProcessing\\Output.txt"
+      "commandLineArgs": "C:\\Users\\svetl\\Documents\\MyProjects\\OrderProcessing\\OrderProcessing\\Orders\\ C:\\Users\\svetl\\Documents\\MyProjects\\OrderProcessing\\OrderProcessing\\Orders\\Kebab.csv C:\\Users\\svetl\\Documents\\MyProjects\\OrderProcessing\\OrderProcessing\\Orders\\IceCream.csv -o C:\\Users\\svetl\\Documents\\MyProjects\\OrderProcessing\\OrderProcessing\\Output.txt"
     }
   }
 }

@@ -1,0 +1,5 @@
+Product,Quantity
+sugar,3
+milk,15
+eggs,10
+chocolate,12

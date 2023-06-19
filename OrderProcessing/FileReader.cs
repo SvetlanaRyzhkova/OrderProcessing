@@ -23,7 +23,7 @@ namespace OrderProcessing
         {
             using (StreamReader reader = new StreamReader(path))
             {
-                string headerLine = reader.ReadLine();
+                string? headerLine = reader.ReadLine();
                 string? line;
                 while ((line = reader.ReadLine()) != null)
                 {

@@ -4,19 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrderProcessing
+namespace OrderProcessing.IntegrationTests
 {
-    public class FileWriter: IFileWriter
+    public class CSVFileGenerator
     {
-        public FileWriter() { } 
-        public void writeInFile(string path, Dictionary<string, int> order)
+        public void createCSVFile(string path, string[,] data)
         {
             using (StreamWriter writer = File.CreateText(path))
             {
                 writer.WriteLine("Product,Quantity");
-                foreach (string key in order.Keys)
+                for (int i = 0; i < data.GetLength(0); i++)
                 {
-                    writer.WriteLine(key + "," + order[key]);
+                    writer.WriteLine(data[i,0] + "," + data[i, 1]);
                 }
             }
         }
