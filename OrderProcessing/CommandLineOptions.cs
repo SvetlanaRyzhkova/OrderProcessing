@@ -17,5 +17,8 @@ namespace OrderProcessing
         [Option(shortName:'o', longName: "Output file", Required = true, HelpText = "Output file to save.")]
         public string OutputFile { get; set; }
 
+        [Option(longName: "ignore", HelpText = "Output file to save.")]
+        public bool Ignore { get; set; }
+
     }
 }
