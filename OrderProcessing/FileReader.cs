@@ -9,30 +9,30 @@ namespace OrderProcessing
     public class FileReader: IFileReader
     {
         public FileReader() { }
-        public Dictionary<string, int> readFiles(IEnumerable<string> pathes)
+        public async Task<Dictionary<string, int>> readFiles(IEnumerable<string> pathes)
         {
             Dictionary<string, int> order = new Dictionary<string, int>();
             foreach (string path in pathes)
             {
-                readFile(path, ref order);
+                await readFile(path, order).ConfigureAwait(false);
             }
             return order;
         }
 
-        public void readFile(string path, ref Dictionary<string, int> order)
+        public async Task readFile(string path, Dictionary<string, int> order)
         {
             using (StreamReader reader = new StreamReader(path))
             {
-                string? headerLine = reader.ReadLine();
+                string? headerLine = await reader.ReadLineAsync().ConfigureAwait(false);
                 string? line;
-                while ((line = reader.ReadLine()) != null)
+                while ((line = await reader.ReadLineAsync().ConfigureAwait(false)) != null)
                 {
-                    parseLine(line, ref order);
+                    parseLine(line, order);
                 }
             }
         }
 
-        public void parseLine(string line, ref Dictionary<string, int> order)
+        public void parseLine(string line, Dictionary<string, int> order)
         {
             string[] values = line.Split(",");
             string product = values[0];

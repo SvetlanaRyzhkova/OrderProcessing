@@ -2,14 +2,11 @@
 
 public class Program
 {
-    static int Main(string[] args)
+    static async Task Main(string[] args)
     {
-        
         FileReader fileReader = new FileReader();
         FileWriter fileWriter = new FileWriter();
         OrderProcessingApp app = new OrderProcessingApp(fileWriter, fileReader);
-        app.Run(args);
-        
-        return 0;
+        await app.Run(args).ConfigureAwait(false);
     }
 }

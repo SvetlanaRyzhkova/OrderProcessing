@@ -8,6 +8,6 @@ namespace OrderProcessing
 {
     public interface IFileWriter
     {
-        public void writeInFile(string path, Dictionary<string, int> order);
+        public Task writeInFile(string path, Dictionary<string, int> order);
     }
 }

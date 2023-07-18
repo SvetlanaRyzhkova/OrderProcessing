@@ -17,18 +17,18 @@ namespace OrderProcessing
             this.fileReader = fileReader;
         }
 
-        public int Run(string[] args)
+        public async Task Run(string[] args)
         {
-            var opts = Parser.Default.ParseArguments<CommandLineOptions>(args);
-            if (opts.Value == null) return 0;
-            IEnumerable<string> inputPathes = opts.Value.InputFiles;
-            string outputPath = opts.Value.OutputFile;
+            await Parser.Default.ParseArguments<CommandLineOptions>(args).WithParsedAsync(async (CommandLineOptions opts) =>
+            {
+                IEnumerable<string> inputPathes = opts.InputFiles;
+                string outputPath = opts.OutputFile;
 
-            Dictionary<string, int> order = fileReader.readFiles(inputPathes);
+                Dictionary<string, int> order = await fileReader.readFiles(inputPathes);
 
-            fileWriter.writeInFile(outputPath, order);
+                await fileWriter.writeInFile(outputPath, order);
 
-            return 0;
+            }).ConfigureAwait(false);
         }
     }
 }

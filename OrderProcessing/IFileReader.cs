@@ -8,8 +8,8 @@ namespace OrderProcessing
 {
     public interface IFileReader
     {
-        public Dictionary<string, int> readFiles(IEnumerable<string> pathes);
-        public void readFile(string path, ref Dictionary<string, int> order);
-        public void parseLine(string line, ref Dictionary<string, int> order);
+        public Task<Dictionary<string, int>> readFiles(IEnumerable<string> pathes);
+        public Task readFile(string path, Dictionary<string, int> order);
+        public void parseLine(string line, Dictionary<string, int> order);
     }
 }

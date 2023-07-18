@@ -9,14 +9,15 @@ namespace OrderProcessing
     public class FileWriter: IFileWriter
     {
         public FileWriter() { } 
-        public void writeInFile(string path, Dictionary<string, int> order)
+        public async Task writeInFile(string path, Dictionary<string, int> order)
         {
+            const string comma = ",";
             using (StreamWriter writer = File.CreateText(path))
             {
-                writer.WriteLine("Product,Quantity");
+                await writer.WriteLineAsync($"Product{comma}Quantity").ConfigureAwait(false);
                 foreach (string key in order.Keys)
                 {
-                    writer.WriteLine(key + "," + order[key]);
+                    await writer.WriteLineAsync($"{key}{comma}{order[key]}").ConfigureAwait(false);
                 }
             }
         }
