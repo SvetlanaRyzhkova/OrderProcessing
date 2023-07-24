@@ -11,13 +11,12 @@ namespace OrderProcessing
         public FileWriter() { } 
         public async Task writeInFile(string path, Dictionary<string, int> order)
         {
-            const string comma = ",";
             using (StreamWriter writer = File.CreateText(path))
             {
-                await writer.WriteLineAsync($"Product{comma}Quantity").ConfigureAwait(false);
+                await writer.WriteLineAsync(Constants.TITLE).ConfigureAwait(false);
                 foreach (string key in order.Keys)
                 {
-                    await writer.WriteLineAsync($"{key}{comma}{order[key]}").ConfigureAwait(false);
+                    await writer.WriteLineAsync($"{key},{order[key]}").ConfigureAwait(false);
                 }
             }
         }

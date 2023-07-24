@@ -9,14 +9,33 @@ namespace OrderProcessing
     public class FileReader: IFileReader
     {
         public FileReader() { }
-        public async Task<Dictionary<string, int>> readFiles(IEnumerable<string> pathes)
+        public async Task<Dictionary<string, int>> readFiles(IEnumerable<string> pathes, bool ignore)
         {
             Dictionary<string, int> order = new Dictionary<string, int>();
             foreach (string path in pathes)
             {
-                await readFile(path, order).ConfigureAwait(false);
+                if (ignore)
+                {
+                    await readFileAndIgnoreWrongPath(path, order).ConfigureAwait(false);
+                }
+                else
+                {
+                    await readFile(path, order).ConfigureAwait(false);
+                }
             }
             return order;
+        }
+
+        public async Task readFileAndIgnoreWrongPath(string path, Dictionary<string, int> order)
+        {
+            try
+            {
+                await readFile(path, order).ConfigureAwait(false);
+            }
+            catch (DirectoryNotFoundException e)
+            { 
+                Console.WriteLine(e.Message);
+            }
         }
 
         public async Task readFile(string path, Dictionary<string, int> order)
@@ -34,11 +53,10 @@ namespace OrderProcessing
 
         public void parseLine(string line, Dictionary<string, int> order)
         {
-            string[] values = line.Split(",");
+            string[] values = line.Split(Constants.COMMA);
             string product = values[0];
             int quantity = int.Parse(values[1]);
             order[product] = order.TryGetValue(product, out int oldQuantity) ? oldQuantity + quantity : quantity;
         }
-
     }
 }

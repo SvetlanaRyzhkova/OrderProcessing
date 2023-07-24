@@ -12,10 +12,10 @@ namespace OrderProcessing.IntegrationTests
         {
             using (StreamWriter writer = File.CreateText(path))
             {
-                writer.WriteLine("Product,Quantity");
+                writer.WriteLine(Constants.TITLE);
                 for (int i = 0; i < data.GetLength(0); i++)
                 {
-                    writer.WriteLine(data[i,0] + "," + data[i, 1]);
+                    writer.WriteLine($"{data[i,0]},{data[i, 1]}");
                 }
             }
         }
