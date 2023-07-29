@@ -54,6 +54,10 @@ namespace OrderProcessing
         public void parseLine(string line, Dictionary<string, int> order)
         {
             string[] values = line.Split(Constants.COMMA);
+            if (values.Length != 2)
+            {
+                throw new FormatException();
+            }
             string product = values[0];
             int quantity = int.Parse(values[1]);
             order[product] = order.TryGetValue(product, out int oldQuantity) ? oldQuantity + quantity : quantity;
