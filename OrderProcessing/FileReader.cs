@@ -1,32 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
+using CsvHelper;
+using OrderProcessing.Model;
 
 namespace OrderProcessing
 {
     public class FileReader: IFileReader
     {
         public FileReader() { }
-        public async Task<Dictionary<string, int>> readFiles(IEnumerable<string> pathes, bool ignore)
+        public async Task<IEnumerable<Order>> readFiles(IEnumerable<string> pathes, bool ignore)
         {
-            Dictionary<string, int> order = new Dictionary<string, int>();
+            List<List<Order>> orders = new List<List<Order>>();
+            List<Task> tasks = new List<Task>();
             foreach (string path in pathes)
             {
-                if (ignore)
+                List<Order> orderFromOneFile = new List<Order>();
+                Task task = Task.Run(() =>
                 {
-                    await readFileAndIgnoreWrongPath(path, order).ConfigureAwait(false);
-                }
-                else
-                {
-                    await readFile(path, order).ConfigureAwait(false);
-                }
+                    if (ignore)
+                    {
+                        return readFileAndIgnoreWrongPath(path, orderFromOneFile);
+                    }
+                    else
+                    {
+                        return readFile(path, orderFromOneFile);
+                    }
+                });
+                orders.Add(orderFromOneFile);
+                tasks.Add(task);
             }
-            return order;
+            await Task.WhenAll(tasks).ConfigureAwait(false);
+
+            return orders.Aggregate((first, second) => first.Concat(second).ToList())
+                .GroupBy(o => o.product).Select(o => new Order { product = o.Key, quantity = o.Sum(o => o.quantity) });
         }
 
-        public async Task readFileAndIgnoreWrongPath(string path, Dictionary<string, int> order)
+        public async Task readFileAndIgnoreWrongPath(string path, List<Order> order)
         {
             try
             {
@@ -38,29 +46,19 @@ namespace OrderProcessing
             }
         }
 
-        public async Task readFile(string path, Dictionary<string, int> order)
+        public async Task readFile(string path, List<Order> order)
         {
             using (StreamReader reader = new StreamReader(path))
             {
-                string? headerLine = await reader.ReadLineAsync().ConfigureAwait(false);
-                string? line;
-                while ((line = await reader.ReadLineAsync().ConfigureAwait(false)) != null)
+                using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
-                    parseLine(line, order);
+                    IAsyncEnumerable<Order> records = csv.GetRecordsAsync<Order>();
+                    await foreach (Order record in records.ConfigureAwait(false))
+                    {
+                        order.Add(record);
+                    }
                 }
             }
-        }
-
-        public void parseLine(string line, Dictionary<string, int> order)
-        {
-            string[] values = line.Split(Constants.COMMA);
-            if (values.Length != 2)
-            {
-                throw new FormatException();
-            }
-            string product = values[0];
-            int quantity = int.Parse(values[1]);
-            order[product] = order.TryGetValue(product, out int oldQuantity) ? oldQuantity + quantity : quantity;
         }
     }
 }

@@ -2,4 +2,7 @@ Product,Quantity
 sugar,3
 milk,15
 eggs,10
+Meat,11
+Oil,1
+Tomatoes,5
 chocolate,12

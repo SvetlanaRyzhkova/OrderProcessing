@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderProcessing", "OrderProcessing\OrderProcessing.csproj", "{C8711976-EE00-4B55-A534-7AB2B32F89F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderProcessing", "OrderProcessing\OrderProcessing.csproj", "{C8711976-EE00-4B55-A534-7AB2B32F89F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderProcessing.IntegrationTests", "OrderProcessing.IntegrationTests\OrderProcessing.IntegrationTests.csproj", "{62804878-BC46-4048-A1A6-2FB6FB0D4E17}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderProcessing.UnitTests", "OrderProcessing.UnitTests\OrderProcessing.UnitTests.csproj", "{54E11518-6543-4CAF-8AC5-B535F0C1D1B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderProcessing.IntegrationTests", "OrderProcessing.IntegrationTests\OrderProcessing.IntegrationTests.csproj", "{62804878-BC46-4048-A1A6-2FB6FB0D4E17}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{84B7082F-41AA-4872-8C4E-862AFA401C60}"
 	ProjectSection(SolutionItems) = preProject
@@ -30,10 +28,6 @@ Global
 		{62804878-BC46-4048-A1A6-2FB6FB0D4E17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62804878-BC46-4048-A1A6-2FB6FB0D4E17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62804878-BC46-4048-A1A6-2FB6FB0D4E17}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54E11518-6543-4CAF-8AC5-B535F0C1D1B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54E11518-6543-4CAF-8AC5-B535F0C1D1B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54E11518-6543-4CAF-8AC5-B535F0C1D1B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54E11518-6543-4CAF-8AC5-B535F0C1D1B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

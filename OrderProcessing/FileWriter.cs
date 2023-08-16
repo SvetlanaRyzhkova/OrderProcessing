@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CsvHelper;
+using OrderProcessing.Model;
+using System.Globalization;
 
 namespace OrderProcessing
 {
     public class FileWriter: IFileWriter
     {
         public FileWriter() { } 
-        public async Task writeInFile(string path, Dictionary<string, int> order)
+        public async Task writeInFile(string path, IEnumerable<Order> order)
         {
             using (StreamWriter writer = File.CreateText(path))
             {
-                await writer.WriteLineAsync(Constants.TITLE).ConfigureAwait(false);
-                foreach (string key in order.Keys)
+                using (CsvWriter csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
-                    await writer.WriteLineAsync($"{key},{order[key]}").ConfigureAwait(false);
+                    csv.WriteHeader<Order>();
+                    csv.NextRecord();
+                    await csv.WriteRecordsAsync(order);
                 }
             }
         }

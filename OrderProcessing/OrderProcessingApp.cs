@@ -1,9 +1,5 @@
 ﻿using CommandLine;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OrderProcessing.Model;
 
 namespace OrderProcessing
 {
@@ -24,7 +20,7 @@ namespace OrderProcessing
                 IEnumerable<string> inputPathes = opts.InputFiles;
                 string outputPath = opts.OutputFile;
 
-                Dictionary<string, int> order = await fileReader.readFiles(inputPathes, opts.Ignore).ConfigureAwait(false);
+                IEnumerable<Order> order = await fileReader.readFiles(inputPathes, opts.Ignore).ConfigureAwait(false);
 
                 await fileWriter.writeInFile(outputPath, order).ConfigureAwait(false);
 
